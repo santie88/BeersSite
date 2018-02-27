@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using BeersSite.Logic;
 
 namespace BeersSite.Controllers
 {
@@ -11,13 +8,22 @@ namespace BeersSite.Controllers
         // GET: Beers
         public ActionResult Index()
         {
-            return View();
+            var beers = JsonRequest.GetBeers();
+
+            return View(beers);
         }
 
         // GET: Beer/id
-        public ActionResult Details()
+        public ActionResult Details(string id)
         {
-            return View();
+            var beer = JsonRequest.GetBeer(id);
+
+            if (beer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(beer);
         }
     }
 }

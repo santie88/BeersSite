@@ -1,8 +1,35 @@
-﻿
+﻿@model IEnumerable<BeersSite.Models.JsonObjects.BeerDatum>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="jumbotron">
+    <table id="beers" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Beers</th>
+            <th>Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var beer in Model)
+        {
+            <tr>
+                <td>@beer.name</td>
+                <td>@Html.ActionLink("Details", "Details", "Beers", new { id = beer.id }, new { @class = "btn btn-primary" })</td>
+            </tr>
+        }
+        </tbody>
+    </table>    
+</div>
 
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $("#beers").Datatable();
+        });
+    </script>
+        
+}
