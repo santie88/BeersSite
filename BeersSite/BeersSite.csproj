@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BeersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -203,6 +204,15 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JsonObjects\BeerAvailable.cs" />
+    <Compile Include="Models\JsonObjects\BeerCategory.cs" />
+    <Compile Include="Models\JsonObjects\BeerDatum.cs" />
+    <Compile Include="Models\JsonObjects\BeerGlass.cs" />
+    <Compile Include="Models\JsonObjects\BeerLabels.cs" />
+    <Compile Include="Models\JsonObjects\BeerMultipleRootObject.cs" />
+    <Compile Include="Models\JsonObjects\BeerSingleRootObject.cs" />
+    <Compile Include="Models\JsonObjects\BeerSrm.cs" />
+    <Compile Include="Models\JsonObjects\BeerStyle.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -267,6 +277,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Beers\Index.cshtml" />
+    <Content Include="Views\Beers\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
