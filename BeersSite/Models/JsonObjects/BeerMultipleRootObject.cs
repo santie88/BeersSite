@@ -2,7 +2,7 @@
 
 namespace BeersSite.Models.JsonObjects
 {
-    public class MultipleBeerRootObject
+    public class BeerMultipleRootObject
     {
         public int currentPage { get; set; }
         public int numberOfPages { get; set; }
