@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using BeersSite.Models;
 using BeersSite.Models.JsonObjects;
 using Newtonsoft.Json;
 
@@ -10,9 +11,16 @@ namespace BeersSite.Logic
         private const string ApiTargetSite = "http://api.brewerydb.com/v2";
         private const string ApiKey = "ee8a1a84bc76fd7d7ae6dd0dc45583e3";
 
-        private static string urlBuilder(string requestObject)
+        private static string urlBuilder(string requestObject, List<string> lstFilters)
         {
-            return string.Format("{0}/{1}/?key={2}", ApiTargetSite, requestObject, ApiKey);
+            var url = string.Format("{0}/{1}/?", ApiTargetSite, requestObject);
+
+            foreach (var filter in lstFilters)
+            {
+                url += string.Format("{0}&",filter);
+            }
+
+            return string.Format("{0}key={1}", url, ApiKey);
         }
 
         private static string urlBuilder(string requestObject, string id)
@@ -42,11 +50,16 @@ namespace BeersSite.Logic
             }
         }
 
-        public static IEnumerable<BeerDatum> GetBeers()
+        public static IEnumerable<BeerViewModel> GetBeers()
         {
-            var oLstBeers = new List<BeerDatum>();
+            return GetBeers(new List<string>());
+        }
 
-            string url = urlBuilder("beers");
+        public static IEnumerable<BeerViewModel> GetBeers(List<string> lstFilters)
+        {
+            var oLstBeers = new List<BeerViewModel>();
+
+            string url = urlBuilder("beers", lstFilters);
 
             using (HttpClient client = new HttpClient())
             {
@@ -60,7 +73,7 @@ namespace BeersSite.Logic
 
                         foreach (var beersDatum in model.data)
                         {
-                            oLstBeers.Add(beersDatum);
+                            oLstBeers.Add(new BeerViewModel() { currentPage = model.currentPage, numberOfPages = model.numberOfPages, id = beersDatum.id, name = beersDatum.name} );
                         }
                     }
                 }

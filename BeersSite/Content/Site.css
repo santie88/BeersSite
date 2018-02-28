@@ -22,3 +22,20 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.backimage {
+    min-height: 400px;
+    background: url("../Resources/BG.jpg") repeat 0 -400px;
+}
+
+.dunkel-background {
+    background-color: #35424a;
+}
+
+.container-fluid {
+    width:100%;
+    margin-right:auto;
+    margin-left:auto;
+    padding-right:15px;
+    padding-left:15px;
+}

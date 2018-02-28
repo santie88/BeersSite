@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using BeersSite.Logic;
 
 namespace BeersSite.Controllers
@@ -6,9 +8,17 @@ namespace BeersSite.Controllers
     public class BeersController : Controller
     {
         // GET: Beers
-        public ActionResult Index()
+        public ActionResult Index(string pageNumber, string name, string year)
         {
-            var beers = JsonRequest.GetBeers();
+            var oLstFilters = new List<string>();
+
+            if(pageNumber != null) oLstFilters.Add($"p={pageNumber}");
+            if(name != null) oLstFilters.Add($"name={name}");
+            if(year != null) oLstFilters.Add($"year={year}");
+
+            var beers = oLstFilters.Count == 0
+                ? JsonRequest.GetBeers()
+                : JsonRequest.GetBeers(oLstFilters);
 
             return View(beers);
         }

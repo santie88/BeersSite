@@ -204,6 +204,7 @@
     </Compile>
     <Compile Include="Logic\JsonRequest.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BeerViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JsonObjects\BeerAvailable.cs" />
     <Compile Include="Models\JsonObjects\BeerCategory.cs" />
@@ -332,6 +333,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resources\BG.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />

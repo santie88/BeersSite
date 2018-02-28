@@ -1,11 +1,39 @@
-﻿@model IEnumerable<BeersSite.Models.JsonObjects.BeerDatum>
+﻿@model IEnumerable<BeersSite.Models.BeerViewModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h3>
+    Filters
+</h3>
+<hr />
 <div class="jumbotron">
-    <table id="beers" class="table table-bordered table-hover">
+    @using (Html.BeginForm("Index", "Beers", FormMethod.Get))
+    {
+        <h3> Search Option: </h3><br />
+        <div class="row">
+            <div class="col-md-6">
+                <text>Name</text> @Html.TextBox("name")
+            </div>
+            <div class="col-md-6">
+                <text>Year</text> @Html.TextBox("year") <text>Format YYYY</text>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <text>Go to page:</text> @Html.TextBox("pageNumber")
+            </div>
+            <div class="col-md-6">
+                <input class="btn btn-primary" type="submit" name="submit" value="Search" />
+            </div>
+        </div>
+    }
+</div>
+
+<div class="jumbotron">
+    <p>@Model.First().currentPage of @Model.First().numberOfPages</p>
+    <table id="beers" >
         <thead>
         <tr>
             <th>Beers</th>
@@ -21,15 +49,17 @@
             </tr>
         }
         </tbody>
-    </table>    
+    </table>
 </div>
 
 @section scripts
 {
-    <script>
-        $(document).ready(function() {
-            $("#beers").DataTable();
-        });
-    </script>
-        
-}
+        <script>
+            $(document).ready(function () {
+                $("#beers").DataTable({
+                    "paging": false,
+                    "info": false
+                });
+            });
+        </script>
+    }
