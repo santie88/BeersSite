@@ -5,15 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-<ul>
-    <li><strong>Name: </strong>@Model.name</li>
-    <li><strong>Description: </strong>@Model.description</li>
-    <li><strong>Abv: </strong>@Model.abv %</li>
-    <li><strong>Organic: </strong>@Model.isOrganic</li>
-    @if (Model.glass != null)
-    {
-        <li><strong>Glass Type: </strong>@Model.glass.name</li>
-    } 
-    <li><strong>Style: </strong>@Model.style.name</li>
-</ul>
+<div class="container-fluid dunkel-background">
+    <h2>Details</h2>
+    <ul>
+        <li><strong>Name: </strong>@Model.name</li>
+        <li><strong>Description: </strong>@Model.description</li>
+        <li><strong>Abv: </strong>@Model.abv %</li>
+        <li><strong>Organic: </strong>@Model.isOrganic</li>
+        @if (Model.glass != null)
+        {
+            <li><strong>Glass Type: </strong>@Model.glass.name</li>
+        }
+        @if (Model.style.name != null)
+        {
+            <li><strong>Style Name: </strong>@Model.style.name</li>
+        } 
+        @if (Model.style.description != null)
+        {
+            <li><strong>Style Description: </strong>@Model.style.description</li>
+        }
+    </ul> 
+</div>

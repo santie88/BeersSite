@@ -71,9 +71,25 @@ namespace BeersSite.Logic
 
                         var model = JsonConvert.DeserializeObject<BeerMultipleRootObject>(json);
 
-                        foreach (var beersDatum in model.data)
+                        if (model.data != null)
                         {
-                            oLstBeers.Add(new BeerViewModel() { currentPage = model.currentPage, numberOfPages = model.numberOfPages, id = beersDatum.id, name = beersDatum.name} );
+                            foreach (var beersDatum in model.data)
+                            {
+                                oLstBeers.Add(new BeerViewModel()
+                                {
+                                    currentPage = model.currentPage,
+                                    numberOfPages = model.numberOfPages,
+                                    id = beersDatum.id,
+                                    name = beersDatum.name,
+                                    description = string.IsNullOrEmpty(beersDatum.description) || beersDatum.description.Length < 256 
+                                        ? beersDatum.description 
+                                        : ($"{beersDatum.description.Substring(0, 255)}...")
+                                });
+                            }
+                        }
+                        else
+                        {
+                            oLstBeers.Add(new BeerViewModel());
                         }
                     }
                 }

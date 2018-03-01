@@ -4,62 +4,69 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>
-    Filters
-</h3>
-<hr />
-<div class="jumbotron">
+<div class="container-fluid">
     @using (Html.BeginForm("Index", "Beers", FormMethod.Get))
     {
-        <h3> Search Option: </h3><br />
-        <div class="row">
-            <div class="col-md-6">
-                <text>Name</text> @Html.TextBox("name")
-            </div>
-            <div class="col-md-6">
-                <text>Year</text> @Html.TextBox("year") <text>Format YYYY</text>
-            </div>
+        <h3> Search Options: </h3><br/>
+        <div class="ctrl-input">
+            <text>Name:</text><br/>
+            @Html.TextBox("name")
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <text>Go to page:</text> @Html.TextBox("pageNumber")
-            </div>
-            <div class="col-md-6">
-                <input class="btn btn-primary" type="submit" name="submit" value="Search" />
-            </div>
+        <div class="ctrl-input">
+            <text>Year:</text><br/>
+             @Html.TextBox("year") <text>Format YYYY</text>
+        </div>
+        <div class="ctrl-input">
+            <text>Page:</text><br/>
+             @Html.TextBox("pageNumber")
+        </div>
+        <div class="ctrl-btn">
+            <input class="btn btn-primary" type="submit" name="submit" value="Search" />
         </div>
     }
 </div>
-
-<div class="jumbotron">
-    <p>@Model.First().currentPage of @Model.First().numberOfPages</p>
-    <table id="beers" >
-        <thead>
-        <tr>
-            <th>Beers</th>
-            <th>Details</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var beer in Model)
-        {
-            <tr>
-                <td>@beer.name</td>
-                <td>@Html.ActionLink("Details", "Details", "Beers", new { id = beer.id }, new { @class = "btn btn-primary" })</td>
-            </tr>
-        }
-        </tbody>
-    </table>
+<hr/>
+<div class="container-fluid dunkel-background">
+    @if (@Model.First().currentPage == 0)
+    {
+        <p>Sorry, there are no records!</p>
+    }
+    else
+    {
+        <p>@Model.First().currentPage of @Model.First().numberOfPages</p>
+        <table id="beers">
+            <thead>
+                <tr>
+                    <th>Beers</th>
+                    <th>Descrption</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var beer in Model)
+                {
+                    <tr class="table-bordered">
+                        <td>@beer.name</td>
+                        <td>@beer.description</td>
+                        <td>@Html.ActionLink("Details", "Details", "Beers", new { id = beer.id }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
 
 @section scripts
 {
-        <script>
-            $(document).ready(function () {
-                $("#beers").DataTable({
-                    "paging": false,
-                    "info": false
-                });
+    <script>
+        $(document).ready(function() {
+            $("#beers").DataTable({
+                "paging": false,
+                "searching": false,
+                "info": false,
+                "columnDefs": [
+                    { "orderable": false, "targets": [1, 2] }
+                ]
             });
-        </script>
-    }
+        });
+    </script>
+}
